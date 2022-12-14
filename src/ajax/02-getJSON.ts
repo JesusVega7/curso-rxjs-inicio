@@ -2,18 +2,17 @@
 import { catchError, map, of, pluck } from 'rxjs';
 import {ajax, AjaxError} from 'rxjs/ajax';
 
-const catchingError  = (resp: AjaxError) => {
-    let err = resp?.message;
-    console.warn('error: ', err)
-    return of({
-        ok: false,
-        users: []
-    })
+const catchingError = (resp: AjaxError) => {
+    let err = resp.message;
+
+    console.warn('error: ', err);
+    return err
 }
-const url = 'https://httpbin.aorg/delay/1';
+const url = 'https://httpbin.org/delaay/1';
 const $obs = ajax.getJSON(url).pipe(
     catchError(catchingError)
 );
+
 
 
 $obs.subscribe(data => console.log(data))
